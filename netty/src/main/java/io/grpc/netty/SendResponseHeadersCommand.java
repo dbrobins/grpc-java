@@ -24,7 +24,7 @@ import io.netty.handler.codec.http2.Http2Headers;
 /**
  * Command sent from the transport to the Netty channel to send response headers to the client.
  */
-final class SendResponseHeadersCommand extends WriteQueue.AbstractQueuedCommand {
+public final class SendResponseHeadersCommand extends WriteQueue.AbstractQueuedCommand {
   private final StreamIdHolder stream;
   private final Http2Headers headers;
   private final Status status;
@@ -35,29 +35,29 @@ final class SendResponseHeadersCommand extends WriteQueue.AbstractQueuedCommand 
     this.status = status;
   }
 
-  static SendResponseHeadersCommand createHeaders(StreamIdHolder stream, Http2Headers headers) {
+  public static SendResponseHeadersCommand createHeaders(StreamIdHolder stream, Http2Headers headers) {
     return new SendResponseHeadersCommand(stream, headers, null);
   }
 
-  static SendResponseHeadersCommand createTrailers(
+  public static SendResponseHeadersCommand createTrailers(
       StreamIdHolder stream, Http2Headers headers, Status status) {
     return new SendResponseHeadersCommand(
         stream, headers, Preconditions.checkNotNull(status, "status"));
   }
 
-  StreamIdHolder stream() {
+  public StreamIdHolder stream() {
     return stream;
   }
 
-  Http2Headers headers() {
+  public Http2Headers headers() {
     return headers;
   }
 
-  boolean endOfStream() {
+  public boolean endOfStream() {
     return status != null;
   }
 
-  Status status() {
+  public Status status() {
     return status;
   }
 

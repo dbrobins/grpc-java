@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * A command to trigger close and allow streams naturally close.
  */
-class GracefulServerCloseCommand extends WriteQueue.AbstractQueuedCommand {
+public class GracefulServerCloseCommand extends WriteQueue.AbstractQueuedCommand {
   private final String goAwayDebugString;
   private final long graceTime;
   private final TimeUnit graceTimeUnit;

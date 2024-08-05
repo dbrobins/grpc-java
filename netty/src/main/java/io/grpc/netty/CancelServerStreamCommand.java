@@ -24,7 +24,7 @@ import io.grpc.Status;
 /**
  * Command sent from a Netty server stream to the handler to cancel the stream.
  */
-final class CancelServerStreamCommand extends WriteQueue.AbstractQueuedCommand {
+public final class CancelServerStreamCommand extends WriteQueue.AbstractQueuedCommand {
   private final NettyServerStream.TransportState stream;
   private final Status reason;
   private final PeerNotify peerNotify;
@@ -46,15 +46,15 @@ final class CancelServerStreamCommand extends WriteQueue.AbstractQueuedCommand {
     return new CancelServerStreamCommand(stream, reason, PeerNotify.BEST_EFFORT_STATUS);
   }
 
-  NettyServerStream.TransportState stream() {
+  public NettyServerStream.TransportState stream() {
     return stream;
   }
 
-  Status reason() {
+  public Status reason() {
     return reason;
   }
 
-  boolean wantsHeaders() {
+  public boolean wantsHeaders() {
     return peerNotify == PeerNotify.BEST_EFFORT_STATUS;
   }
 

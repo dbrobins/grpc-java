@@ -27,14 +27,14 @@ import io.perfmark.PerfMark;
 /**
  * Command sent from the transport to the Netty channel to send a GRPC frame to the remote endpoint.
  */
-final class SendGrpcFrameCommand extends DefaultByteBufHolder implements WriteQueue.QueuedCommand {
+public final class SendGrpcFrameCommand extends DefaultByteBufHolder implements WriteQueue.QueuedCommand {
   private final StreamIdHolder stream;
   private final boolean endStream;
   private final Link link;
 
   private ChannelPromise promise;
 
-  SendGrpcFrameCommand(StreamIdHolder stream, ByteBuf content, boolean endStream) {
+  public SendGrpcFrameCommand(StreamIdHolder stream, ByteBuf content, boolean endStream) {
     super(content);
     this.stream = stream;
     this.endStream = endStream;
@@ -46,11 +46,11 @@ final class SendGrpcFrameCommand extends DefaultByteBufHolder implements WriteQu
     return link;
   }
 
-  StreamIdHolder stream() {
+  public StreamIdHolder stream() {
     return stream;
   }
 
-  boolean endStream() {
+  public boolean endStream() {
     return endStream;
   }
 

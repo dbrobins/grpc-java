@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 The gRPC Authors
+ * Copyright 2024 The gRPC Authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,20 +16,13 @@
 
 package io.grpc.netty;
 
-import io.grpc.Status;
+import io.netty.handler.codec.http2.Http2Stream;
 
 /**
- * A command to trigger close and close all streams. It is buffered differently than normal close
- * and also includes reason for closure.
+ * Server hanlder interface for gRPC HTTP/2 streams.
  */
-public class ForcefulCloseCommand extends WriteQueue.AbstractQueuedCommand {
-  private final Status status;
-
-  public ForcefulCloseCommand(Status status) {
-    this.status = status;
-  }
-
-  public Status getStatus() {
-    return status;
-  }
+public interface StreamServerHandler {
+  WriteQueue getWriteQueue();
+  void returnProcessedBytes(Http2Stream http2Stream, int bytes);
 }
+

@@ -32,7 +32,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * A queue of pending writes to a {@link Channel} that is flushed as a single unit.
  */
-class WriteQueue {
+public class WriteQueue {
 
   // Dequeue in chunks, so we don't have to acquire the queue's log too often.
   @VisibleForTesting

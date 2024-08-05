@@ -108,7 +108,7 @@ import javax.annotation.Nullable;
  * Server-side Netty handler for GRPC processing. All event handlers are executed entirely within
  * the context of the Netty Channel thread.
  */
-class NettyServerHandler extends AbstractNettyHandler {
+class NettyServerHandler extends AbstractNettyHandler implements StreamServerHandler {
   private static final Logger logger = Logger.getLogger(NettyServerHandler.class.getName());
   private static final long KEEPALIVE_PING = 0xDEADL;
   @VisibleForTesting
@@ -673,7 +673,8 @@ class NettyServerHandler extends AbstractNettyHandler {
     }
   }
 
-  WriteQueue getWriteQueue() {
+  @Override
+  public WriteQueue getWriteQueue() {
     return serverWriteQueue;
   }
 
@@ -709,7 +710,8 @@ class NettyServerHandler extends AbstractNettyHandler {
   /**
    * Returns the given processed bytes back to inbound flow control.
    */
-  void returnProcessedBytes(Http2Stream http2Stream, int bytes) {
+  @Override
+  public void returnProcessedBytes(Http2Stream http2Stream, int bytes) {
     try {
       decoder().flowController().consumeBytes(http2Stream, bytes);
     } catch (Http2Exception e) {
